@@ -163,7 +163,7 @@ std::pair<unsigned int, float> Analyzer::_readTree( const std::string& infile,
 	                std::vector< std::vector<unsigned int> >& rechits_id,
 		        std::vector< std::vector<float> >& impactX, std::vector< std::vector<float> >& impactY) {
   //enable parallel execution
-  ROOT::EnableImplicitMT( ncpus_ );
+//  ROOT::EnableImplicitMT( ncpus_ );
   //creates RDataFrame object
   std::string intree = "relevant_branches";
   ROOT::RDataFrame d( intree.c_str(), infile.c_str() );

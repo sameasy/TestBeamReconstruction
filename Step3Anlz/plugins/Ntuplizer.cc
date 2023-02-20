@@ -39,7 +39,7 @@ void Ntuplizer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
   // init vars
   edm::ESHandle<CaloGeometry> geom; 
   iSetup.get<CaloGeometryRecord>().get(geom); 
-  recHitTools->setGeometry(*geom);
+  //  recHitTools->getGeometry(*geom);
 
   //tree->Fill();
 }

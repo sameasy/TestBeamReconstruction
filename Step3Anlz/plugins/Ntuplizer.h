@@ -50,7 +50,7 @@
 #include <TH1.h>
 
 // Common Data Formats used by the ntuple
-#include "UserCode/Step3Anlz/interface/CommonDataFormats.h"
+//#include "UserCode/Step3Anlz/interface/CommonDataFormats.h"
 
 class Ntuplizer : public edm::one::EDAnalyzer<edm::one::SharedResources> {
 public:

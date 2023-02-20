@@ -51,8 +51,8 @@ Selector::~Selector()
 void Selector::load_noise_values()
 {
   std::string home( getenv("HOME") );
-  std::string rel( getenv("CMSSW_VERSION") );
-  std::string filename = home + "/" + rel + "/src/UserCode/DataProcessing/Noise_Map.txt";
+  std::string rel( getenv("CMSSW_BASE") );
+  std::string filename = rel + "/src/UserCode/DataProcessing/Noise_Map.txt";
   std::ifstream in(filename);
   if(!in.is_open())
     throw std::invalid_argument("File " + filename + " could not be opened.");
@@ -75,8 +75,8 @@ void Selector::load_noise_values()
 void Selector::load_shift_values()
 {
   std::string home( getenv("HOME") );
-  std::string rel( getenv("CMSSW_VERSION") );
-  std::string filename = home + "/" + rel + "/src/UserCode/DataProcessing/Impact_Shifts.txt";
+  std::string rel( getenv("CMSSW_BASE") );
+  std::string filename = rel + "/src/UserCode/DataProcessing/Impact_Shifts.txt";
   std::ifstream in(filename);
   if(!in.is_open())
     throw std::invalid_argument("File " + filename + " could not be opened.");
@@ -240,9 +240,9 @@ void Selector::select_relevant_branches()
   t_had1 = static_cast<TTree*>( f_had->Get(this->indata_.tree_name.c_str()) ); 
   t_had2 = static_cast<TTree*>( f_had->Get(this->indata_.tree_name_friend.c_str()) ); 
   t_had1->AddFriend(t_had2, "myFriend");
+  std::cout << " Ncpu " << ncpus_ << std::endl;
+//  ROOT::EnableImplicitMT( ncpus_ ); //enable parallelism
   d = new ROOT::RDataFrame(*t_had1);
-
-  ROOT::EnableImplicitMT( ncpus_ ); //enable parallelism
   ROOT::Detail::RDF::ColumnNames_t clean_cols = {"rechit_energy", "rechit_layer", "rechit_chip", "rechit_channel", "rechit_module", "rechit_amplitudeHigh", "rechit_noise_flag", "st"};
   ROOT::Detail::RDF::ColumnNames_t clean_cols_detid = clean_cols; clean_cols_detid.insert( clean_cols_detid.begin(), "rechit_detid");
   ROOT::Detail::RDF::ColumnNames_t clean_cols_x = clean_cols; clean_cols_x.insert( clean_cols_x.begin(), "rechit_x");

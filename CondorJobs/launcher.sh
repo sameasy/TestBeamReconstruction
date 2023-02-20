@@ -180,14 +180,15 @@ export SCRAM_ARCH="slc7_amd64_gcc820"
 if [ $(varExists "${INIT_FOLDER}") = true ] && [ $(varExists "${CMSSW_PATH}") = true ] &&
     [ $(varExists "${HOME_DIR}") = true ] && [ $(varExists "${ANALYSIS_PATH}") = true ]; then
     INIT_FOLDER=$(pwd);
-    ANALYSIS_PATH="/afs/cern.ch/user/${USER:0:1}/${USER}/TestBeamAnalysis/src/";
+#    ANALYSIS_PATH="/home/llr/cms/beaudette/hgcal/tb/v1/CMSSW_12_1_0/src/";
+    ANALYSIS_PATH="/home/llr/cms/sghosh/TESTBEAM/CMSSW_11_1_0_pre2/src/";
 else
     echo "Use different variable names.";
     exit 0;
 fi
 
 cd "${ANALYSIS_PATH}";
-source /afs/cern.ch/cms/cmsset_default.sh
+#source /afs/cern.ch/cms/cmsset_default.sh
 eval `scramv1 runtime -sh` #cmsenv substitute
 
 #back to the job folder
@@ -197,21 +198,25 @@ if [[ "${STEP}" == "selection" ]]; then
 
     if [[ "${DATATYPE}" == "data" ]]; then
 	if [[ "${SHOWERTYPE}" == "em" ]]; then
-	    INFILE="/eos/cms/store/group/dpg_hgcal/tb_hgcal/2018/cern_h2_october/offline_analysis/ntuples/v16/ntuple_${NTUPLEID}.root"; #HGCAL only
+#	    INFILE="/eos/cms/store/group/dpg_hgcal/tb_hgcal/2018/cern_h2_october/offline_analysis/ntuples/v16/ntuple_${NTUPLEID}.root"; #HGCAL only
+	    INFILE="/home/llr/cms/sghosh/TESTBEAM/CMSSW_11_1_0_pre2/src/UserCode/CondorJobs/ntuple_${NTUPLEID}.root"; #HGCAL only
 	elif [[ "${SHOWERTYPE}" == "had" ]]; then
 	    INFILE="/eos/cms/store/group/dpg_hgcal/tb_hgcal/2018/cern_h2_october/offline_analysis/ahcal-hgcal-merged-ntuples/ahcal_v8-hgcal_v16/merged_ntuple_${NTUPLEID}.root"; #HGCAL+AHCAL
 	fi
-	OUTFILE="/eos/user/b/bfontana/TestBeamReconstruction/ntuple_selection_${DATATYPE}_${SHOWERTYPE}_${NTUPLEID}.root";
+#	OUTFILE="/eos/user/b/beaudett/TestBeamReconstruction/ntuple_selection_${DATATYPE}_${SHOWERTYPE}_${NTUPLEID}.root";
+	OUTFILE="/home/llr/cms/sghosh/TESTBEAM/CMSSW_11_1_0_pre2/src/ntuple_selection_${DATATYPE}_${SHOWERTYPE}_${NTUPLEID}.root";
     elif [[ "${DATATYPE}" == "sim_noproton" ]]; then
 	INFILE="/eos/cms/store/group/dpg_hgcal/tb_hgcal/2018/cern_h2_october/offline_analysis/sim_ntuples/CMSSW11_0_withAHCAL_newBeamline/FTFP_BERT_EMN/v5/electrons/ntuple_sim_config22_pdgID11_beamMomentum${ENERGY}_listFTFP_BERT_EMN_0000_${NTUPLEID}.root";
-	OUTFILE="/eos/user/b/bfontana/TestBeamReconstruction/ntuple_selection_${DATATYPE}_${SHOWERTYPE}_beamen${ENERGY}_${NTUPLEID}.root";
+#	OUTFILE="/eos/user/b/beaudett/TestBeamReconstruction/ntuple_selection_${DATATYPE}_${SHOWERTYPE}_beamen${ENERGY}_${NTUPLEID}.root";
+	OUTFILE="/home/llr/cms/sghosh/TESTBEAM/CMSSW_11_1_0_pre2/src/ntuple_selection_${DATATYPE}_${SHOWERTYPE}_beamen${ENERGY}_${NTUPLEID}.root";
     elif [[ "${DATATYPE}" == "sim_proton" ]]; then
 	if [[ "${SHOWERTYPE}" == "em" ]]; then
 	    INFILE="/eos/cms/store/group/dpg_hgcal/tb_hgcal/2018/cern_h2_october/offline_analysis/sim_ntuples/CMSSW11_0_withAHCAL_newBeamline/FTFP_BERT_EMN/v3/electrons/ntuple_sim_config22_pdgID11_beamMomentum${ENERGY}_listFTFP_BERT_EMN_0000_${NTUPLEID}.root";
 	elif [[ "${SHOWERTYPE}" == "had" ]]; then
        	    INFILE="/eos/cms/store/group/dpg_hgcal/tb_hgcal/2018/cern_h2_october/offline_analysis/sim_ntuples/CMSSW11_0_withAHCAL_newBeamline/FTFP_BERT_EMN/v44_VtxBeam_v3/CorrectFHLay10/pions/ntuple_sim_config22_pdgID211_beamMomentum${ENERGY}_listFTFP_BERT_EMN_0000_${NTUPLEID}.root"
 	fi
-	OUTFILE="/eos/user/b/bfontana/TestBeamReconstruction/ntuple_selection_${DATATYPE}_${SHOWERTYPE}_beamen${ENERGY}_${NTUPLEID}.root";
+#	OUTFILE="/eos/user/b/beaudett/TestBeamReconstruction/ntuple_selection_${DATATYPE}_${SHOWERTYPE}_beamen${ENERGY}_${NTUPLEID}.root";
+	OUTFILE="/home/llr/cms/sghosh/TESTBEAM/CMSSW_11_1_0_pre2/src/ntuple_selection_${DATATYPE}_${SHOWERTYPE}_beamen${ENERGY}_${NTUPLEID}.root";
     fi
     echo "Input file: ${INFILE}"
     echo "Output file: ${OUTFILE}"
